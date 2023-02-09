@@ -6,7 +6,7 @@ document.getElementById("status").addEventListener("click", e => getStatus(e));
 document.getElementById("submit").addEventListener("click", e => postForm(e));
 
 async function postForm(e) {
-    const form = new FormData(document.getElementById("checksform"));
+    const form = processOptions(new FormData(document.getElementById("checksform")));
 
     const response = await fetch(API_URL, {
         method: "POST",
@@ -23,6 +23,18 @@ async function postForm(e) {
     else {
         throw new Error(data.error);
     }
+}
+
+function processOptions(form) {
+
+    let opt_array = [];
+    for (let entry of form) {
+        if (entry[0] === "options") {
+            opt_array.push(entry[1]);
+        }
+    }
+    form.delete("options");
+    form.append(opt_array.join());
 }
 
 function displayErrors(data) {

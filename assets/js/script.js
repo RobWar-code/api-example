@@ -2,6 +2,7 @@ const API_KEY = "AzkVzENpL2XoEMGh8JIvLXoFiAE";
 const API_URL = "https://ci-jshint.herokuapp.com/api";
 const resultsModal = new bootstrap.Modal(document.getElementById("resultsModal"));
 
+// Test javascript URL: https://mattrudge.net/assets/js/menu.js
 document.getElementById("status").addEventListener("click", e => getStatus(e));
 document.getElementById("submit").addEventListener("click", e => postForm(e));
 
@@ -34,7 +35,8 @@ function processOptions(form) {
         }
     }
     form.delete("options");
-    form.append(opt_array.join());
+    form.append("options", opt_array.join());
+    return form;
 }
 
 function displayErrors(data) {

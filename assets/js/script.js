@@ -22,8 +22,21 @@ async function postForm(e) {
         displayErrors(data);
     }
     else {
+        displayException(data);
         throw new Error(data.error);
     }
+}
+
+function displayException(data) {
+    console.log("error:", data);
+    let heading = "An Exception Occurred"
+    let report = "";
+    report += `<div>The API returned Status Code ${data.status_code}</div>`;
+    report += `<div>Error number: <span class="error-number">${data.error_no}</span></div>`;
+    report += `<div>Error text: <span class="error-text">${data.error}</span></div>`;
+    document.getElementById("resultsModalTitle").innerText = heading;
+    document.getElementById("results-content").innerHTML = report;
+    resultsModal.show();
 }
 
 function processOptions(form) {
@@ -66,6 +79,7 @@ async function getStatus(e) {
         displayStatus(data);
     }
     else {
+        displayException(data);
         throw new Error(data.error);
     }
 }
